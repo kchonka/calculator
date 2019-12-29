@@ -4,27 +4,39 @@
 
 from tkinter import *
 
+# Global string variable for the expression
+expression: str = ""
+
+
 # Calculator functions:
-expression: str = ""       # Global expression variable
-
-
 def add_input(user_input):
     global expression
-    expression = str(expression) + str(user_input)
+    expression = expression + str(user_input)
     input_text.set(expression)
 
 
+# Negates the expression. Implementation of the "+/-" negation button
+def negate():
+    global expression
+    expression = "-(" + expression + ")"
+    input_text.set(expression)
+
+
+# Clears the calculator & the input expression.
 def clear():
     global expression
-    expression = ""     # Set the expression to the empty string
-    input_text.set("0")
+    expression = ""
+    input_text.set("")
 
 
+# Parses the input and evaluates the string expression.
+# Throws an error if unable to evaluate due to the format.
 def evaluate():
+    global expression
     try:
-        global expression
         total = str(eval(expression))
         input_text.set(total)      # Place the result in the input_text bar
+        expression = total         # Updates the expression to the total
     except:
         input_text.set("Error")
         expression = ""
@@ -57,8 +69,8 @@ input_field.pack(ipady=25)
 
 # Creating the rest of the buttons:
 # First row:
-clear = Button(bottom_frame, text="C", font=('arial', 11, 'bold'), fg="black", width=16, height=6, bg="plum2", cursor="hand1", command=lambda: clear()).grid(row=0, column=0)
-negate = Button(bottom_frame, text="+/-", font=('arial', 11, 'bold'), fg="black", width=16, height=6, bg="plum2", cursor="hand1", command=lambda: add_input("-")).grid(row=0, column=1)
+clear = Button(bottom_frame, text="C", font=('arial', 11, 'bold'), fg="black", width=16, height=6, bg="plum2", cursor="hand1", command=clear).grid(row=0, column=0)
+negate = Button(bottom_frame, text="+/-", font=('arial', 11, 'bold'), fg="black", width=16, height=6, bg="plum2", cursor="hand1", command=negate).grid(row=0, column=1)
 percentage = Button(bottom_frame, text="%", font=('arial', 11, 'bold'), fg="black", width=16, height=6, bg="plum2", cursor="hand1", command=lambda: add_input("%")).grid(row=0, column=2)
 divide = Button(bottom_frame, text="/", font=('arial', 11, 'bold'), fg="black", width=16, height=6, bg="plum2", cursor="hand1", command=lambda: add_input("/")).grid(row=0, column=3)
 # Second row:
@@ -81,6 +93,7 @@ zero = Button(bottom_frame, text="0", font=('arial', 11, 'bold'), fg="white", wi
 decimal = Button(bottom_frame, text=".", font=('arial', 11, 'bold'), fg="black", width=16, height=6, bg="plum2", cursor="hand1", command=lambda: add_input(".")).grid(row=4, column=2)
 equals = Button(bottom_frame, text="=", font=('arial', 11, 'bold'), fg="black", width=16, height=6, bg="plum2", cursor="hand1", command=lambda: evaluate()).grid(row=4, column=3)
 
+# Run the GUI:
 m.mainloop()
 
 
