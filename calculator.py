@@ -5,7 +5,7 @@
 from tkinter import *
 
 # Global string variable for the expression
-expression: str = ""
+expression = ""
 
 
 # Calculator functions:
@@ -55,7 +55,7 @@ m.resizable(0,0)
 # Separating the window into frames:
 input_frame = Frame(m, width=648, height=150, bd=0)
 input_frame.pack(side=TOP)
-bottom_frame = Frame(m, width=648, height=590, bg="white")
+bottom_frame = Frame(m, width=648, height=610, bg="white")
 bottom_frame.pack()
 
 # Variable to capture the input of the input_field:
